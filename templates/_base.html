@@ -10,6 +10,7 @@
   <meta name="description" content="A framework for launching new Django projects quickly.">
   <meta name="author" content="">
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+  {% block head_extra %}{% endblock head_extra %}
 
   {% block css %}
   <!-- Bootstrap CSS -->

@@ -1,0 +1,67 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}
+    Mastodon Timeline
+{% endblock title %}
+
+{% block head_extra %}
+    {% load crispy_forms_tags %}
+    <style>
+        /* Add custom CSS here */
+        .timeline {
+            max-width: 600px; /* Adjust the value to your preference */
+            margin: 0 auto; /* Center the column */
+        }
+        
+        .status {
+            border: 1px solid #ccc;
+            border-radius: 10px; /* Rounded corners */
+            padding: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .status__avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+        
+        .status__avatar img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .status__content {
+            flex: 1;
+        }
+    </style>
+{% endblock head_extra %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Your Mastodon Timeline</h1>
+        <div class="timeline">
+            {% for post in timeline %}
+                {% if post.content %}
+                <div class="status">
+                    <div class="status__avatar">
+                        <img src="{{ post.account_avatar }}" alt="User Avatar">
+                    </div>
+                    <div class="status__content">
+                        <div class="status__user">
+                            <a href="{{ post.account_profile }}" class="status__display-name">{{ post.account_display_name }}</a>
+                            <span class="status__username">{{ post.account_handle }}</span>
+                        </div>
+                        <p>{{ post.content|safe }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
